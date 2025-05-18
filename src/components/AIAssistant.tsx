@@ -202,57 +202,65 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ documentContent = '' }) => {
         )}
       </div>
 
-      {documentContent && (
-        <div className="px-4 pt-2">
-          <button
-            onClick={handleSuggestIdeas}
-            disabled={isLoading}
-            className={`w-full flex items-center justify-center py-2 ${
-              theme === 'dark' 
-                ? 'bg-indigo-800 text-white hover:bg-indigo-700' 
-                : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
-            } rounded-md transition-colors mb-2`}
-          >
-            <Sparkles size={16} className="mr-2" />
-            Suggest improvements for this document
-          </button>
-        </div>
-      )}
-
-      <div className={`p-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask me anything about your document..."
-            className={`flex-grow px-4 py-2 border ${
-              theme === 'dark' 
-                ? 'bg-gray-700 border-gray-600 text-white focus:ring-indigo-400' 
-                : 'bg-white border-gray-300 text-gray-700 focus:ring-indigo-500'
-            } rounded-l-md focus:outline-none focus:ring-2`}
-            disabled={isLoading}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSendMessage();
-              }
-            }}
-          />
-          <button
-            onClick={handleSendMessage}
-            disabled={isLoading || !inputMessage.trim()}
-            className={`px-4 py-2 rounded-r-md ${
-              isLoading || !inputMessage.trim()
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : theme === 'dark'
-                  ? 'bg-indigo-700 text-white hover:bg-indigo-600 transition-colors'
-                  : 'bg-indigo-600 text-white hover:bg-indigo-700 transition-colors'
-            }`}
-          >
-            <Send size={18} />
-          </button>
-        </div>
+    {documentContent && (
+      <div className="px-4 pt-2">
+        <button
+          onClick={handleSuggestIdeas}
+          disabled={isLoading}
+          style={
+            isLoading
+              ? {}
+              : { backgroundColor: '#00ffAB', color: '#fff', border: 'none' }
+          }
+          className={`w-full flex items-center justify-center py-2 rounded-md transition-colors mb-2 ${
+            isLoading
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : ''
+          }`}
+        >
+          <Sparkles size={16} className="mr-2" />
+          Suggest improvements for this document
+        </button>
       </div>
+    )}
+
+    <div className={`p-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+      <div className="flex items-center">
+        <input
+          type="text"
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
+          placeholder="Ask me anything about your document..."
+          className={`flex-grow px-4 py-2 border ${
+            theme === 'dark' 
+              ? 'bg-gray-700 border-gray-600 text-white focus:ring-indigo-400' 
+              : 'bg-white border-gray-300 text-gray-700 focus:ring-indigo-500'
+          } rounded-l-md focus:outline-none focus:ring-2`}
+          disabled={isLoading}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleSendMessage();
+            }
+          }}
+        />
+        <button
+          onClick={handleSendMessage}
+          disabled={isLoading || !inputMessage.trim()}
+          style={
+            isLoading || !inputMessage.trim()
+              ? {}
+              : { backgroundColor: '#00ffAB', color: '#fff', border: 'none' }
+          }
+          className={`px-4 py-2 rounded-r-md ${
+            isLoading || !inputMessage.trim()
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : ''
+          }`}
+        >
+          <Send size={18} />
+        </button>
+      </div>
+    </div>
     </motion.div>
   );
 };
